@@ -101,7 +101,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 
 <div class="wrap">
   <header class="hero">
-    <h1 id="greeting">Work Hub</h1>
+    <h1>Built for the helpdesk</h1>
   </header>
   <section class="group" data-accent="#EF4444">
     <h2><span class="swatch" style="background:#EF4444"></span>Admin Centers</h2>
@@ -245,9 +245,6 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 <script>
 function paintClock(){
   const now = new Date();
-  const h = now.getHours();
-  const greet = h < 5 ? "Still up?" : h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : h < 21 ? "Good evening" : "Working late";
-  document.getElementById("greeting").textContent = greet;
   document.getElementById("clock").textContent =
     now.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"}) + " · " +
     now.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
