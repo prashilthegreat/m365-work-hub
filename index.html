@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Work Hub — Microsoft 365</title>
+<meta name="description" content="One-tap launcher for Microsoft 365 apps and admin tools." />
+<meta name="theme-color" content="#12161C" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<style>
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --ink:#161B22; --muted:#5B6572;
+  --line:#E1E5EA; --accent:#0EA5A0; --accent-ink:#04302E; --ring:#0EA5A055;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:-apple-system,ui-sans-serif,"Segoe UI",Inter,system-ui,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:48px;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.ribbon{background:var(--ink);color:#fff;padding:10px 0;font-size:13px}
+.ribbon .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ribbon .status{display:flex;align-items:center;gap:8px;color:#C9D3DC}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.dot.off{background:#E5484D;box-shadow:0 0 0 3px #E5484D33}
+header.hero{padding:56px 0 28px}
+.eyebrow{text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.14em;
+  color:var(--accent-ink);background:#E6F7F6;display:inline-block;
+  padding:5px 10px;border-radius:100px;border:1px solid #C9EEEB;}
+h1{font-size:clamp(32px,5vw,50px);line-height:1.02;letter-spacing:-0.02em;
+  font-weight:800;margin:16px 0 10px;}
+.lede{color:var(--muted);font-size:16px;max-width:56ch;line-height:1.55;margin:0}
+.search{margin-top:26px;position:relative;max-width:420px}
+.search input{width:100%;padding:12px 14px 12px 38px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);font-size:14.5px;color:var(--ink);}
+.search input:focus{border-color:var(--accent)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.5}
+section.group{margin-top:38px}
+.group h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--muted);margin:0 0 14px;display:flex;align-items:center;gap:9px;}
+.group h2 .swatch{width:9px;height:9px;border-radius:3px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.grid.wide{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.grid.hero-two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--card-accent,var(--accent));
+  border-radius:10px;padding:14px 16px;transition:transform .12s ease, box-shadow .12s ease;}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px -12px rgba(15,23,32,.25)}
+.card-row{display:flex;gap:12px;align-items:flex-start}
+.card .glyph{width:34px;height:34px;border-radius:8px;background:var(--card-accent,var(--accent));
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;
+  font-size:13px;flex:none;}
+.card .txt{min-width:0;flex:1}
+.card .name{font-weight:650;font-size:14.5px;letter-spacing:-.005em}
+.card .desc{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.card.hidden{display:none}
+.card.admin .card-row a{display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0}
+.toggle{background:none;border:none;cursor:pointer;color:var(--muted);flex:none;
+  width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.toggle:hover{background:#F1F3F6;color:var(--ink)}
+.toggle svg{transition:transform .15s ease}
+.card.admin:not(.closed) .toggle svg{transform:rotate(180deg)}
+.submenu{overflow:hidden;max-height:220px;transition:max-height .18s ease;}
+.card.admin.closed .submenu{max-height:0}
+
+.submenu ul{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:2px;}
+.submenu a{display:block;padding:6px 8px;border-radius:7px;font-size:13px;color:var(--ink);}
+.submenu a:hover{background:#F1F3F6;color:var(--card-accent,var(--accent))}
+.submenu a::before{content:"→ ";color:var(--muted)}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="ribbon">
+  <div class="wrap">
+    <span id="clock">—</span>
+    <span class="status"><span class="dot" id="netDot"></span><span id="netTxt">Checking connection…</span></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Microsoft 365</span>
+    <h1 id="greeting">Work Hub</h1>
+    <p class="lede">Admin consoles, Teams, Outlook and the MSP tools you touch daily — one tap away, installable offline.</p>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="filter" type="text" placeholder="Filter apps… (e.g. intune, hudu, vpn)" autocomplete="off" />
+    </div>
+  </header>
+  <section class="group" data-accent="#EF4444">
+    <h2><span class="swatch" style="background:#EF4444"></span>Admin Centers</h2>
+    <div class="grid wide">
+
+      <div class="card admin open" style="--card-accent:#EF4444" data-k="admin center tenant settings users billing">
+        <div class="card-row">
+          <a href="https://admin.microsoft.com/" target="_blank" rel="noopener">
+            <span class="glyph">Ad</span><span class="txt"><div class="name">Admin Center</div><div class="desc">Tenant-wide settings</div></span></a>
+          <button class="toggle" aria-label="Expand Admin Center links" onclick="this.closest('.card').classList.toggle('closed')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="submenu"><ul>
+          <li><a href="https://admin.microsoft.com/#/users" target="_blank" rel="noopener">Active users</a></li>
+          <li><a href="https://admin.microsoft.com/#/groups" target="_blank" rel="noopener">Groups</a></li>
+          <li><a href="https://admin.microsoft.com/#/billing/licenses" target="_blank" rel="noopener">Billing &amp; licenses</a></li>
+          <li><a href="https://admin.microsoft.com/#/servicehealth" target="_blank" rel="noopener">Service health</a></li>
+          <li><a href="https://admin.microsoft.com/#/support" target="_blank" rel="noopener">Support</a></li>
+        </ul></div>
+      </div>
+
+      <div class="card admin open" style="--card-accent:#EF4444" data-k="entra id azure ad identity access users devices conditional">
+        <div class="card-row">
+          <a href="https://entra.microsoft.com/" target="_blank" rel="noopener">
+            <span class="glyph">Id</span><span class="txt"><div class="name">Entra ID</div><div class="desc">Identity and access</div></span></a>
+          <button class="toggle" aria-label="Expand Entra ID links" onclick="this.closest('.card').classList.toggle('closed')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="submenu"><ul>
+          <li><a href="https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/AllUsers" target="_blank" rel="noopener">Users</a></li>
+          <li><a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups" target="_blank" rel="noopener">Groups</a></li>
+          <li><a href="https://entra.microsoft.com/#view/Microsoft_AAD_Devices/DevicesMenuBlade/~/Devices" target="_blank" rel="noopener">Devices</a></li>
+          <li><a href="https://entra.microsoft.com/#view/Microsoft_AAD_IAM/SignInsMenuBlade" target="_blank" rel="noopener">Sign-in logs</a></li>
+          <li><a href="https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Overview" target="_blank" rel="noopener">Conditional access</a></li>
+        </ul></div>
+      </div>
+
+      <div class="card admin open" style="--card-accent:#EF4444" data-k="exchange admin center mailboxes mail flow connectors">
+        <div class="card-row">
+          <a href="https://admin.exchange.microsoft.com/" target="_blank" rel="noopener">
+            <span class="glyph">Ex</span><span class="txt"><div class="name">Exchange Admin</div><div class="desc">Mailboxes and mail flow</div></span></a>
+          <button class="toggle" aria-label="Expand Exchange Admin links" onclick="this.closest('.card').classList.toggle('closed')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="submenu"><ul>
+          <li><a href="https://admin.exchange.microsoft.com/#/mailboxes" target="_blank" rel="noopener">Mailboxes</a></li>
+          <li><a href="https://admin.exchange.microsoft.com/#/transportrules" target="_blank" rel="noopener">Mail flow rules</a></li>
+          <li><a href="https://admin.exchange.microsoft.com/#/groups" target="_blank" rel="noopener">Groups</a></li>
+          <li><a href="https://admin.exchange.microsoft.com/#/connectors" target="_blank" rel="noopener">Connectors</a></li>
+        </ul></div>
+      </div>
+
+      <div class="card admin open" style="--card-accent:#EF4444" data-k="intune devices apps compliance configuration">
+        <div class="card-row">
+          <a href="https://intune.microsoft.com/" target="_blank" rel="noopener">
+            <span class="glyph">In</span><span class="txt"><div class="name">Intune</div><div class="desc">Devices and app policy</div></span></a>
+          <button class="toggle" aria-label="Expand Intune links" onclick="this.closest('.card').classList.toggle('closed')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="submenu"><ul>
+          <li><a href="https://intune.microsoft.com/#view/Microsoft_Intune_Devices/DevicesMenu/~/overview" target="_blank" rel="noopener">Devices</a></li>
+          <li><a href="https://intune.microsoft.com/#view/Microsoft_Intune_Apps/AppsMenu/~/overview" target="_blank" rel="noopener">Apps</a></li>
+          <li><a href="https://intune.microsoft.com/#view/Microsoft_Intune_DeviceSettings/DevicesComplianceMenu/~/overview" target="_blank" rel="noopener">Compliance policies</a></li>
+          <li><a href="https://intune.microsoft.com/#view/Microsoft_Intune_DeviceSettings/DevicesConfigurationMenu" target="_blank" rel="noopener">Configuration profiles</a></li>
+        </ul></div>
+      </div>
+
+      <div class="card admin open" style="--card-accent:#EF4444" data-k="teams admin center users voice meeting policies">
+        <div class="card-row">
+          <a href="https://admin.teams.microsoft.com/" target="_blank" rel="noopener">
+            <span class="glyph">Ta</span><span class="txt"><div class="name">Teams Admin</div><div class="desc">Voice, meetings and policy</div></span></a>
+          <button class="toggle" aria-label="Expand Teams Admin links" onclick="this.closest('.card').classList.toggle('closed')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="submenu"><ul>
+          <li><a href="https://admin.teams.microsoft.com/users" target="_blank" rel="noopener">Users</a></li>
+          <li><a href="https://admin.teams.microsoft.com/teams/manage-teams" target="_blank" rel="noopener">Manage teams</a></li>
+          <li><a href="https://admin.teams.microsoft.com/meetings/meeting-policies" target="_blank" rel="noopener">Meeting policies</a></li>
+          <li><a href="https://admin.teams.microsoft.com/voice" target="_blank" rel="noopener">Voice</a></li>
+        </ul></div>
+      </div>
+
+    </div>
+  </section>
+  <section class="group" data-accent="#7C3AED">
+    <h2><span class="swatch" style="background:#7C3AED"></span>Teams &amp; Outlook</h2>
+    <div class="grid hero-two">
+      <a class="card" style="--card-accent:#7C3AED" data-k="teams chat calls channels video" href="https://teams.microsoft.com/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Te</span><span class="txt"><div class="name">Teams</div><div class="desc">Chat, calls and channels</div></span></div></a>
+      <a class="card" style="--card-accent:#3B82F6" data-k="outlook mail inbox" href="https://outlook.office.com/mail/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Ou</span><span class="txt"><div class="name">Outlook</div><div class="desc">Mail and calendar</div></span></div></a>
+    </div>
+  </section>
+
+  <section class="group" data-accent="#0891B2">
+    <h2><span class="swatch" style="background:#0891B2"></span>Mail Manager / VPN</h2>
+    <div class="grid">
+      <a class="card" style="--card-accent:#0891B2" data-k="mailmanager mail manager safelocation" href="https://mailmanager.safelocation.com.au" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">MM</span><span class="txt"><div class="name">Mail Manager</div><div class="desc">mailmanager.safelocation.com.au</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="hudu documentation emergeit dashboard" href="https://emergeit.huducloud.com/dashboard" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Hu</span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="miwatj vpn" href="https://vpn.miwatj.com.au:442/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Mi</span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">vpn.miwatj.com.au</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="n-able ncod rmm login" href="https://ncod35.n-able.com/login" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Na</span><span class="txt"><div class="name">N-able</div><div class="desc">RMM login</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="acronis cloud backup login" href="https://cloud.acronis.com/login" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph">Ac</span><span class="txt"><div class="name">Acronis</div><div class="desc">Cloud backup login</div></span></div></a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Admin center deep links (Entra, Exchange, Intune, Teams Admin sub-menu items) can shift when Microsoft updates those portals — if one 404s, the top-level card link always works as a fallback.</p>
+  </footer>
+</div>
+
+<script>
+function paintClock(){
+  const now = new Date();
+  const h = now.getHours();
+  const greet = h < 5 ? "Still up?" : h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : h < 21 ? "Good evening" : "Working late";
+  document.getElementById("greeting").textContent = greet;
+  document.getElementById("clock").textContent =
+    now.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"}) + " · " +
+    now.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+}
+paintClock();
+setInterval(paintClock, 30000);
+function paintNet(){
+  const on = navigator.onLine;
+  document.getElementById("netDot").classList.toggle("off", !on);
+  document.getElementById("netTxt").textContent = on ? "Online" : "Offline — app shell still works";
+}
+paintNet();
+window.addEventListener("online", paintNet);
+window.addEventListener("offline", paintNet);
+
+const filterInput = document.getElementById("filter");
+filterInput.addEventListener("input", () => {
+  const q = filterInput.value.trim().toLowerCase();
+  document.querySelectorAll(".card").forEach(c => {
+    const hit = !q || (c.dataset.k + " " + c.textContent).toLowerCase().includes(q);
+    c.classList.toggle("hidden", !hit);
+    if (hit && q && c.classList.contains("admin")) c.classList.remove("closed");
+  });
+  document.querySelectorAll(".group").forEach(g => {
+    const any = [...g.querySelectorAll(".card")].some(c => !c.classList.contains("hidden"));
+    g.style.display = any ? "" : "none";
+  });
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
