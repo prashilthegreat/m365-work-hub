@@ -34,6 +34,9 @@ a{color:inherit;text-decoration:none}
 .dot.off{background:#E5484D;box-shadow:0 0 0 3px #E5484D33}
 header.hero{padding:22px 0 18px;display:flex;align-items:flex-start;flex-direction:column;gap:14px}
 header.hero .company-logo{display:block;width:165px;height:auto;flex:none}
+header.hero .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:12px;width:min(100%,568px);margin-top:4px}
+header.hero .hero-actions .card{padding:10px 14px}
+header.hero .hero-actions .card-row{align-items:center}
 .eyebrow{text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.14em;
   color:var(--accent-ink);background:#E6F7F6;display:inline-block;
   padding:5px 10px;border-radius:100px;border:1px solid #C9EEEB;}
@@ -59,8 +62,8 @@ section.group{margin-top:38px}
 .group h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
   color:var(--muted);margin:0 0 14px;display:flex;align-items:center;gap:9px;}
 .group h2 .swatch{width:9px;height:9px;border-radius:3px;display:inline-block}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;align-items:start}
-.grid.wide{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;align-items:stretch}
+.grid.wide{grid-template-columns:repeat(auto-fill,minmax(270px,1fr));align-items:start}
 .grid.hero-two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--card-accent,var(--accent));
   border-radius:10px;padding:14px 16px;transition:transform .12s ease, box-shadow .12s ease;}
@@ -86,6 +89,7 @@ section.group{margin-top:38px}
 .toggle:hover{background:#F1F3F6;color:var(--ink)}
 .toggle svg{transition:transform .15s ease}
 .card.admin.open .toggle svg{transform:rotate(180deg)}
+.card.admin.open{min-height:231px}
 .submenu{overflow:hidden;max-height:0;transition:max-height .18s ease;}
 .card.admin.open .submenu{max-height:220px}
 
@@ -98,6 +102,7 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
 footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 @media (max-width:600px){
   header.hero .company-logo{width:145px}
+  header.hero .hero-actions{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -114,6 +119,12 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
   <header class="hero">
     <img class="company-logo" src="icons/logos/company.svg" alt="Emerge IT Solutions">
     <h1>Built for Frontline and User &amp; End Point Support</h1>
+    <div class="hero-actions">
+      <a class="card" style="--card-accent:#22C55E" data-k="service desk leaders leaderboard ntcomputers" href="https://leaderboard.ntcomputers.com.au/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Desk Leaders</div></span></div></a>
+      <a class="card" style="--card-accent:#22C55E" data-k="service boards ntcomputers dashboard" href="https://service-boards.ntcomputers.com.au/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Boards</div></span></div></a>
+    </div>
   </header>
   <section class="group" data-accent="#EF4444">
     <h2><span class="swatch" style="background:#EF4444"></span>Admin Centers</h2>
@@ -216,29 +227,19 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     </div>
   </section>
 
-  <section class="group" data-accent="#22C55E">
-    <h2><span class="swatch" style="background:#22C55E"></span>Dashboards</h2>
-    <div class="grid">
-      <a class="card" style="--card-accent:#22C55E" data-k="service desk leaders leaderboard ntcomputers" href="https://leaderboard.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Desk Leaders</div><div class="desc">Team performance leaderboard</div></span></div></a>
-      <a class="card" style="--card-accent:#22C55E" data-k="service boards ntcomputers dashboard" href="https://service-boards.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Boards</div><div class="desc">Live ticket board overview</div></span></div></a>
-    </div>
-  </section>
-
   <section class="group" data-accent="#0891B2">
-    <h2><span class="swatch" style="background:#0891B2"></span>Mail Manager / VPN</h2>
+    <h2><span class="swatch" style="background:#0891B2"></span>Remote control and stuff</h2>
     <div class="grid">
-      <a class="card" style="--card-accent:#0891B2" data-k="mailmanager mail manager safelocation" href="https://mailmanager.safelocation.com.au" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph logo"><img src="icons/logos/mail-release.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Mail Manager</div><div class="desc">Client mail flow tracking</div></span></div></a>
-      <a class="card" style="--card-accent:#0891B2" data-k="hudu documentation emergeit dashboard" href="https://emergeit.huducloud.com/dashboard" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph logo"><img src="icons/logos/hudu.ico" alt="" loading="lazy"></span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
-      <a class="card" style="--card-accent:#0891B2" data-k="miwatj vpn" href="https://vpn.miwatj.com.au:442/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph logo miwatj-mark"><img src="icons/logos/miwatj.png" alt="" loading="lazy"></span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">Remote network access</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="n-able ncod rmm login" href="https://ncod35.n-able.com/login" target="_blank" rel="noopener">
         <div class="card-row"><span class="glyph logo"><img src="icons/logos/n-able.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">N-able</div><div class="desc">RMM login</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="acronis cloud backup login" href="https://cloud.acronis.com/login" target="_blank" rel="noopener">
         <div class="card-row"><span class="glyph logo"><img src="icons/logos/acronis.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Acronis</div><div class="desc">Cloud backup login</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="hudu documentation emergeit dashboard" href="https://emergeit.huducloud.com/dashboard" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/hudu.ico" alt="" loading="lazy"></span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="mailmanager mail manager safelocation" href="https://mailmanager.safelocation.com.au" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/mail-release.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Mail Manager</div><div class="desc">Client mail flow tracking</div></span></div></a>
+      <a class="card" style="--card-accent:#0891B2" data-k="miwatj vpn" href="https://vpn.miwatj.com.au:442/" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo miwatj-mark"><img src="icons/logos/miwatj.png" alt="" loading="lazy"></span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">Remote network access</div></span></div></a>
     </div>
   </section>
 
