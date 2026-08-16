@@ -1,9 +1,13 @@
-const CACHE = "m365-hub-v1";
+const CACHE = "m365-hub-v2";
 const SHELL = [
   "./index.html",
   "./manifest.json",
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/icon-512.png",
+  "./icons/logos/admin365.svg",
+  "./icons/logos/entra.svg",
+  "./icons/logos/teams.svg",
+  "./icons/logos/outlook.svg"
 ];
 
 self.addEventListener("install", (e) => {

@@ -68,6 +68,8 @@ section.group{margin-top:38px}
 .card .glyph{width:34px;height:34px;border-radius:8px;background:var(--card-accent,var(--accent));
   color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;
   font-size:13px;flex:none;}
+.card .glyph.logo{background:#fff;border:1px solid var(--line);padding:5px;}
+.card .glyph.logo img{width:100%;height:100%;object-fit:contain;}
 .card .txt{min-width:0;flex:1}
 .card .name{font-weight:650;font-size:14.5px;letter-spacing:-.005em}
 .card .desc{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
@@ -110,7 +112,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
       <div class="card admin" style="--card-accent:#EF4444" data-k="admin center tenant settings users billing">
         <div class="card-row">
           <a href="https://admin.microsoft.com/" target="_blank" rel="noopener">
-            <span class="glyph">Ad</span><span class="txt"><div class="name">Admin Center</div><div class="desc">Tenant-wide settings</div></span></a>
+            <span class="glyph logo"><img src="icons/logos/admin365.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Admin Center</div><div class="desc">Tenant-wide settings</div></span></a>
           <button class="toggle" aria-label="Expand Admin Center links" onclick="this.closest('.card').classList.toggle('open')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -127,7 +129,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
       <div class="card admin" style="--card-accent:#EF4444" data-k="entra id azure ad identity access users devices conditional">
         <div class="card-row">
           <a href="https://entra.microsoft.com/" target="_blank" rel="noopener">
-            <span class="glyph">Id</span><span class="txt"><div class="name">Entra ID</div><div class="desc">Identity and access</div></span></a>
+            <span class="glyph logo"><img src="icons/logos/entra.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Entra ID</div><div class="desc">Identity and access</div></span></a>
           <button class="toggle" aria-label="Expand Entra ID links" onclick="this.closest('.card').classList.toggle('open')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -176,7 +178,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
       <div class="card admin" style="--card-accent:#EF4444" data-k="teams admin center users voice meeting policies">
         <div class="card-row">
           <a href="https://admin.teams.microsoft.com/" target="_blank" rel="noopener">
-            <span class="glyph">Ta</span><span class="txt"><div class="name">Teams Admin</div><div class="desc">Voice, meetings and policy</div></span></a>
+            <span class="glyph logo"><img src="icons/logos/teams.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Teams Admin</div><div class="desc">Voice, meetings and policy</div></span></a>
           <button class="toggle" aria-label="Expand Teams Admin links" onclick="this.closest('.card').classList.toggle('open')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -208,9 +210,9 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     <h2><span class="swatch" style="background:#22C55E"></span>Dashboards</h2>
     <div class="grid">
       <a class="card" style="--card-accent:#22C55E" data-k="service desk leaders leaderboard ntcomputers" href="https://leaderboard.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Lb</span><span class="txt"><div class="name">Service Desk Leaders</div><div class="desc">leaderboard.ntcomputers.com.au</div></span></div></a>
+        <div class="card-row"><span class="glyph">Lb</span><span class="txt"><div class="name">Service Desk Leaders</div><div class="desc">Team performance leaderboard</div></span></div></a>
       <a class="card" style="--card-accent:#22C55E" data-k="service boards ntcomputers dashboard" href="https://service-boards.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Bd</span><span class="txt"><div class="name">Service Boards</div><div class="desc">service-boards.ntcomputers.com.au</div></span></div></a>
+        <div class="card-row"><span class="glyph">Bd</span><span class="txt"><div class="name">Service Boards</div><div class="desc">Live ticket board overview</div></span></div></a>
     </div>
   </section>
 
@@ -218,11 +220,11 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     <h2><span class="swatch" style="background:#0891B2"></span>Mail Manager / VPN</h2>
     <div class="grid">
       <a class="card" style="--card-accent:#0891B2" data-k="mailmanager mail manager safelocation" href="https://mailmanager.safelocation.com.au" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">MM</span><span class="txt"><div class="name">Mail Manager</div><div class="desc">mailmanager.safelocation.com.au</div></span></div></a>
+        <div class="card-row"><span class="glyph">MM</span><span class="txt"><div class="name">Mail Manager</div><div class="desc">Client mail flow tracking</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="hudu documentation emergeit dashboard" href="https://emergeit.huducloud.com/dashboard" target="_blank" rel="noopener">
         <div class="card-row"><span class="glyph">Hu</span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="miwatj vpn" href="https://vpn.miwatj.com.au:442/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Mi</span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">vpn.miwatj.com.au</div></span></div></a>
+        <div class="card-row"><span class="glyph">Mi</span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">Remote network access</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="n-able ncod rmm login" href="https://ncod35.n-able.com/login" target="_blank" rel="noopener">
         <div class="card-row"><span class="glyph">Na</span><span class="txt"><div class="name">N-able</div><div class="desc">RMM login</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="acronis cloud backup login" href="https://cloud.acronis.com/login" target="_blank" rel="noopener">
@@ -234,9 +236,9 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     <h2><span class="swatch" style="background:#7C3AED"></span>Teams &amp; Outlook</h2>
     <div class="grid hero-two">
       <a class="card" style="--card-accent:#7C3AED" data-k="teams chat calls channels video" href="https://teams.microsoft.com/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Te</span><span class="txt"><div class="name">Teams</div><div class="desc">Chat, calls and channels</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/teams.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Teams</div><div class="desc">Chat, calls and channels</div></span></div></a>
       <a class="card" style="--card-accent:#3B82F6" data-k="outlook mail inbox" href="https://outlook.office.com/mail/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Ou</span><span class="txt"><div class="name">Outlook</div><div class="desc">Mail and calendar</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/outlook.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Outlook</div><div class="desc">Mail and calendar</div></span></div></a>
     </div>
   </section>
 
