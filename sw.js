@@ -1,4 +1,4 @@
-const CACHE = "m365-hub-v2";
+const CACHE = "m365-hub-v11";
 const SHELL = [
   "./index.html",
   "./manifest.json",
@@ -7,7 +7,18 @@ const SHELL = [
   "./icons/logos/admin365.svg",
   "./icons/logos/entra.svg",
   "./icons/logos/teams.svg",
-  "./icons/logos/outlook.svg"
+  "./icons/logos/outlook.svg",
+  "./icons/logos/company.svg",
+  "./icons/logos/connectwise.svg",
+  "./icons/logos/connectwise-manage.png",
+  "./icons/logos/connectwise-calendar.svg",
+  "./icons/logos/exchange.svg",
+  "./icons/logos/intune.svg",
+  "./icons/logos/hudu.ico",
+  "./icons/logos/n-able.svg",
+  "./icons/logos/acronis.svg",
+  "./icons/logos/miwatj.png",
+  "./icons/logos/mail-release.svg"
 ];
 
 self.addEventListener("install", (e) => {

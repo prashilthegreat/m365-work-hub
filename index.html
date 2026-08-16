@@ -32,7 +32,8 @@ a{color:inherit;text-decoration:none}
 .ribbon .status{display:flex;align-items:center;gap:8px;color:#C9D3DC}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--ring)}
 .dot.off{background:#E5484D;box-shadow:0 0 0 3px #E5484D33}
-header.hero{padding:22px 0 18px}
+header.hero{padding:22px 0 18px;display:flex;align-items:flex-start;flex-direction:column;gap:14px}
+header.hero .company-logo{display:block;width:165px;height:auto;flex:none}
 .eyebrow{text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.14em;
   color:var(--accent-ink);background:#E6F7F6;display:inline-block;
   padding:5px 10px;border-radius:100px;border:1px solid #C9EEEB;}
@@ -58,7 +59,7 @@ section.group{margin-top:38px}
 .group h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
   color:var(--muted);margin:0 0 14px;display:flex;align-items:center;gap:9px;}
 .group h2 .swatch{width:9px;height:9px;border-radius:3px;display:inline-block}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;align-items:start}
 .grid.wide{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
 .grid.hero-two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--card-accent,var(--accent));
@@ -70,6 +71,11 @@ section.group{margin-top:38px}
   font-size:13px;flex:none;}
 .card .glyph.logo{background:#fff;border:1px solid var(--line);padding:5px;}
 .card .glyph.logo img{width:100%;height:100%;object-fit:contain;}
+.card .glyph.logo.connectwise-mark{overflow:hidden;background:#fff;justify-content:flex-start}
+.card .glyph.logo.connectwise-mark img{width:82px;height:22px;max-width:none;flex:none;object-fit:initial;object-position:left center;clip-path:inset(0 58px 0 0)}
+.card .glyph.logo.emerge-mark,.card .glyph.logo.miwatj-mark{overflow:hidden;background:#fff;justify-content:flex-start}
+.card .glyph.logo.emerge-mark img{width:83px;height:18px;max-width:none;flex:none;object-fit:initial;clip-path:inset(0 63px 0 0);transform:translate(3px,1px)}
+.card .glyph.logo.miwatj-mark img{width:60px;height:22px;max-width:none;flex:none;object-fit:initial;clip-path:inset(0 37px 0 0)}
 .card .txt{min-width:0;flex:1}
 .card .name{font-weight:650;font-size:14.5px;letter-spacing:-.005em}
 .card .desc{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
@@ -90,6 +96,9 @@ section.group{margin-top:38px}
 .submenu a::before{content:"→ ";color:var(--muted)}
 footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
 footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
+@media (max-width:600px){
+  header.hero .company-logo{width:145px}
+}
 </style>
 </head>
 <body>
@@ -103,6 +112,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 
 <div class="wrap">
   <header class="hero">
+    <img class="company-logo" src="icons/logos/company.svg" alt="Emerge IT Solutions">
     <h1>Built for Frontline and User &amp; End Point Support</h1>
   </header>
   <section class="group" data-accent="#EF4444">
@@ -146,7 +156,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
       <div class="card admin" style="--card-accent:#EF4444" data-k="exchange admin center mailboxes mail flow connectors">
         <div class="card-row">
           <a href="https://admin.exchange.microsoft.com/" target="_blank" rel="noopener">
-            <span class="glyph">Ex</span><span class="txt"><div class="name">Exchange Admin</div><div class="desc">Mailboxes and mail flow</div></span></a>
+            <span class="glyph logo"><img src="icons/logos/exchange.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Exchange Admin</div><div class="desc">Mailboxes and mail flow</div></span></a>
           <button class="toggle" aria-label="Expand Exchange Admin links" onclick="this.closest('.card').classList.toggle('open')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -162,7 +172,7 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
       <div class="card admin" style="--card-accent:#EF4444" data-k="intune devices apps compliance configuration">
         <div class="card-row">
           <a href="https://intune.microsoft.com/" target="_blank" rel="noopener">
-            <span class="glyph">In</span><span class="txt"><div class="name">Intune</div><div class="desc">Devices and app policy</div></span></a>
+            <span class="glyph logo"><img src="icons/logos/intune.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Intune</div><div class="desc">Devices and app policy</div></span></a>
           <button class="toggle" aria-label="Expand Intune links" onclick="this.closest('.card').classList.toggle('open')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -194,15 +204,15 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     </div>
   </section>
 
-  <section class="group" data-accent="#F97316">
-    <h2><span class="swatch" style="background:#F97316"></span>ConnectWise</h2>
+  <section class="group" data-accent="#54BEED">
+    <h2><span class="swatch" style="background:#54BEED"></span>ConnectWise</h2>
     <div class="grid">
-      <a class="card" style="--card-accent:#F97316" data-k="connectwise service board" href="https://aus.myconnectwise.net/v2025_1/ConnectWise.aspx?locale=en_US#XQAACACdAQAAAAAAAAA9iIoG07$U9XZqpLgsNhRsI0O_rEHSzQCIbZUnpNMnJHh0NEgqlDkEgC2t1ug2ahJ2XHQ3CIK2MK3ybBEM$DCML21QpaKJNJ0ZqlHYQX7nqVAGnNwHsLPuJY7WCOK0FfHWHSFC9fT$F3jiryGkaBmSshKddCmuPkF3ZVTLdNZr8$sar41ezKm5OwyzZULPPA75atICVcqRyTirKSK3mMfi0L0qxzm2ldil$HYJUe11ttu0rBS_hYj8WkT2??ServiceBoard" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">SB</span><span class="txt"><div class="name">Service Board</div><div class="desc">Active tickets</div></span></div></a>
-      <a class="card" style="--card-accent:#F97316" data-k="connectwise calendar my calendar" href="https://aus.myconnectwise.net/v2025_1/connectwise.aspx?fullscreen=false&locale=en_US#startscreen=my_calendar" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Ca</span><span class="txt"><div class="name">Calendar</div><div class="desc">My schedule</div></span></div></a>
-      <a class="card" style="--card-accent:#F97316" data-k="connectwise service ticket search" href="https://aus.myconnectwise.net/v2025_1/connectwise.aspx?fullscreen=false&locale=en_US#XQAACACWAQAAAAAAAAA9iIoG07$U9W$XoZrQZV53xoiNqCUtfDnD7VQbwrDDyhbzpwzQukgTwLeodHyIm6RBOzK0113$uQCd1cEO2o8Q1jIVrW_J8jGIyxOCxMIXetFHKN5$c7w_IXmTlggbVRMaBxqpBw2RO2OIJnQuKoeNFaiJaLkfa4rZwa1Gc7ekkib579w$ikYSno3flrA3KkvNhq1xpgIKpwuHaS$ueKNPAs3xjf1$fFM$3OkV$mWxq6LWei2X5uf$9V0p??ServiceSearchList" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Se</span><span class="txt"><div class="name">Ticket Search</div><div class="desc">Find a service ticket</div></span></div></a>
+      <a class="card" style="--card-accent:#54BEED" data-k="connectwise service board" href="https://aus.myconnectwise.net/v2025_1/ConnectWise.aspx?locale=en_US#XQAACACdAQAAAAAAAAA9iIoG07$U9XZqpLgsNhRsI0O_rEHSzQCIbZUnpNMnJHh0NEgqlDkEgC2t1ug2ahJ2XHQ3CIK2MK3ybBEM$DCML21QpaKJNJ0ZqlHYQX7nqVAGnNwHsLPuJY7WCOK0FfHWHSFC9fT$F3jiryGkaBmSshKddCmuPkF3ZVTLdNZr8$sar41ezKm5OwyzZULPPA75atICVcqRyTirKSK3mMfi0L0qxzm2ldil$HYJUe11ttu0rBS_hYj8WkT2??ServiceBoard" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo connectwise-mark"><img src="icons/logos/connectwise-manage.png" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Board</div><div class="desc">Active tickets</div></span></div></a>
+      <a class="card" style="--card-accent:#54BEED" data-k="connectwise calendar my calendar" href="https://aus.myconnectwise.net/v2025_1/connectwise.aspx?fullscreen=false&locale=en_US#startscreen=my_calendar" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/connectwise-calendar.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Calendar</div><div class="desc">My schedule</div></span></div></a>
+      <a class="card" style="--card-accent:#54BEED" data-k="connectwise service ticket search" href="https://aus.myconnectwise.net/v2025_1/connectwise.aspx?fullscreen=false&locale=en_US#XQAACACWAQAAAAAAAAA9iIoG07$U9W$XoZrQZV53xoiNqCUtfDnD7VQbwrDDyhbzpwzQukgTwLeodHyIm6RBOzK0113$uQCd1cEO2o8Q1jIVrW_J8jGIyxOCxMIXetFHKN5$c7w_IXmTlggbVRMaBxqpBw2RO2OIJnQuKoeNFaiJaLkfa4rZwa1Gc7ekkib579w$ikYSno3flrA3KkvNhq1xpgIKpwuHaS$ueKNPAs3xjf1$fFM$3OkV$mWxq6LWei2X5uf$9V0p??ServiceSearchList" target="_blank" rel="noopener">
+        <div class="card-row"><span class="glyph logo connectwise-mark"><img src="icons/logos/connectwise-manage.png" alt="" loading="lazy"></span><span class="txt"><div class="name">Ticket Search</div><div class="desc">Find a service ticket</div></span></div></a>
     </div>
   </section>
 
@@ -210,9 +220,9 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     <h2><span class="swatch" style="background:#22C55E"></span>Dashboards</h2>
     <div class="grid">
       <a class="card" style="--card-accent:#22C55E" data-k="service desk leaders leaderboard ntcomputers" href="https://leaderboard.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Lb</span><span class="txt"><div class="name">Service Desk Leaders</div><div class="desc">Team performance leaderboard</div></span></div></a>
+        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Desk Leaders</div><div class="desc">Team performance leaderboard</div></span></div></a>
       <a class="card" style="--card-accent:#22C55E" data-k="service boards ntcomputers dashboard" href="https://service-boards.ntcomputers.com.au/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Bd</span><span class="txt"><div class="name">Service Boards</div><div class="desc">Live ticket board overview</div></span></div></a>
+        <div class="card-row"><span class="glyph logo emerge-mark"><img src="icons/logos/company.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Service Boards</div><div class="desc">Live ticket board overview</div></span></div></a>
     </div>
   </section>
 
@@ -220,15 +230,15 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
     <h2><span class="swatch" style="background:#0891B2"></span>Mail Manager / VPN</h2>
     <div class="grid">
       <a class="card" style="--card-accent:#0891B2" data-k="mailmanager mail manager safelocation" href="https://mailmanager.safelocation.com.au" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">MM</span><span class="txt"><div class="name">Mail Manager</div><div class="desc">Client mail flow tracking</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/mail-release.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Mail Manager</div><div class="desc">Client mail flow tracking</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="hudu documentation emergeit dashboard" href="https://emergeit.huducloud.com/dashboard" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Hu</span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/hudu.ico" alt="" loading="lazy"></span><span class="txt"><div class="name">Hudu</div><div class="desc">IT documentation dashboard</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="miwatj vpn" href="https://vpn.miwatj.com.au:442/" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Mi</span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">Remote network access</div></span></div></a>
+        <div class="card-row"><span class="glyph logo miwatj-mark"><img src="icons/logos/miwatj.png" alt="" loading="lazy"></span><span class="txt"><div class="name">Miwatj VPN</div><div class="desc">Remote network access</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="n-able ncod rmm login" href="https://ncod35.n-able.com/login" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Na</span><span class="txt"><div class="name">N-able</div><div class="desc">RMM login</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/n-able.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">N-able</div><div class="desc">RMM login</div></span></div></a>
       <a class="card" style="--card-accent:#0891B2" data-k="acronis cloud backup login" href="https://cloud.acronis.com/login" target="_blank" rel="noopener">
-        <div class="card-row"><span class="glyph">Ac</span><span class="txt"><div class="name">Acronis</div><div class="desc">Cloud backup login</div></span></div></a>
+        <div class="card-row"><span class="glyph logo"><img src="icons/logos/acronis.svg" alt="" loading="lazy"></span><span class="txt"><div class="name">Acronis</div><div class="desc">Cloud backup login</div></span></div></a>
     </div>
   </section>
 
