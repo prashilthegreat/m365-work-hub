@@ -6,14 +6,24 @@
 <title>Work Hub — Microsoft 365</title>
 <meta name="description" content="One-tap launcher for Microsoft 365 apps and admin tools." />
 <meta name="theme-color" content="#12161C" />
+<script>
+  const savedTheme = localStorage.getItem("theme");
+  const initialTheme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.dataset.theme = initialTheme;
+</script>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icons/icon-192.png" />
 <link rel="apple-touch-icon" href="icons/icon-192.png" />
 <style>
 :root{
   --bg:#F1F3F6; --surface:#FFFFFF; --ink:#161B22; --muted:#5B6572;
-  --line:#E1E5EA; --accent:#0EA5A0; --accent-ink:#04302E; --ring:#0EA5A055;
+  --line:#E1E5EA; --accent:#0EA5A0; --accent-ink:#04302E; --ring:#0EA5A055; --chrome:#161B22;
   --radius:14px;
+}
+[data-theme="dark"]{
+  --bg:#0E131A; --surface:#171D25; --ink:#F3F6F9; --muted:#A7B1BE;
+  --line:#2B3541; --accent:#39C5BE; --accent-ink:#8DE4DF; --ring:#39C5BE44; --chrome:#090D12;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -27,13 +37,21 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.ribbon{background:var(--ink);color:#fff;padding:10px 0;font-size:13px}
+.ribbon{background:var(--chrome);color:#fff;padding:10px 0;font-size:13px}
 .ribbon .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .ribbon .status{display:flex;align-items:center;gap:8px;color:#C9D3DC}
+.ribbon-tools{display:flex;align-items:center;gap:14px}
+.theme-toggle{border:1px solid #3A4652;background:#232B35;color:#F5F7FA;border-radius:999px;
+  min-width:34px;height:28px;padding:0 9px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.theme-toggle:hover{background:#303A46}
+.theme-toggle .sun{display:none}
+[data-theme="dark"] .theme-toggle .sun{display:block}
+[data-theme="dark"] .theme-toggle .moon{display:none}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--ring)}
 .dot.off{background:#E5484D;box-shadow:0 0 0 3px #E5484D33}
 header.hero{padding:22px 0 18px;display:flex;align-items:flex-start;flex-direction:column;gap:14px}
 header.hero .company-logo{display:block;width:165px;height:auto;flex:none}
+[data-theme="dark"] header.hero .company-logo{filter:brightness(0) invert(1)}
 header.hero .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:12px;width:min(100%,568px);margin-top:4px}
 header.hero .hero-actions .card{padding:10px 14px}
 header.hero .hero-actions .card-row{align-items:center}
@@ -46,7 +64,7 @@ h1{font-size:clamp(22px,3.4vw,30px);line-height:1.05;letter-spacing:-0.02em;
 
 .search-fab{position:fixed;right:20px;bottom:20px;z-index:40;
   width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;
+  background:var(--chrome);color:#fff;display:flex;align-items:center;justify-content:center;
   box-shadow:0 10px 24px -8px rgba(15,23,32,.45);transition:transform .12s ease;}
 .search-fab:hover{transform:translateY(-2px)}
 .search-panel{position:fixed;right:20px;bottom:78px;z-index:40;
@@ -87,6 +105,7 @@ section.group{margin-top:38px}
 .toggle{background:none;border:none;cursor:pointer;color:var(--muted);flex:none;
   width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
 .toggle:hover{background:#F1F3F6;color:var(--ink)}
+[data-theme="dark"] .toggle:hover,[data-theme="dark"] .submenu a:hover{background:#222B35}
 .toggle svg{transition:transform .15s ease}
 .card.admin.open .toggle svg{transform:rotate(180deg)}
 .card.admin.open{min-height:231px}
@@ -111,7 +130,13 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 <div class="ribbon">
   <div class="wrap">
     <span id="clock">—</span>
-    <span class="status"><span class="dot" id="netDot"></span><span id="netTxt">Checking connection…</span></span>
+    <span class="ribbon-tools">
+      <span class="status"><span class="dot" id="netDot"></span><span id="netTxt">Checking connection…</span></span>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </span>
   </div>
 </div>
 
@@ -266,6 +291,21 @@ footer p{color:var(--muted);font-size:12.5px;max-width:60ch;line-height:1.6}
 </button>
 
 <script>
+const themeToggle = document.getElementById("themeToggle");
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+function syncThemeControl(){
+  const dark = document.documentElement.dataset.theme === "dark";
+  themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  themeMeta.content = dark ? "#0E131A" : "#12161C";
+}
+syncThemeControl();
+themeToggle.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem("theme", next);
+  syncThemeControl();
+});
+
 function paintClock(){
   const now = new Date();
   document.getElementById("clock").textContent =
